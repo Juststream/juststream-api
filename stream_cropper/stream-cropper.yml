@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+
+Resources:
+  StreamCropper:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: 'stream-cropper'
+      CodeUri: ./
+      Description: 'Crops stream bytes'
+      Timeout: 60
+      Tracing: 'Active'
+      Handler: crop_stream.handler
+      MemorySize: 256
+      Runtime: python3.9
+      AutoPublishAlias: live
+      Role: !GetAtt StreamCropperRole.Arn
+      DeploymentPreference:
+        Type: AllAtOnce
+  StreamCropperRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'lambda.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: 'S3Access'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:*'
+                Resource:
+                  - 'arn:aws:s3:::m3u8-files-mate/*'

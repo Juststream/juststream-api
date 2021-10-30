@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  VideosTable:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "match_id"
+          AttributeType: "S"
+        - AttributeName: "status"
+          AttributeType: "S"
+        - AttributeName: "created_at"
+          AttributeType: "S"
+        - AttributeName: "views"
+          AttributeType: "N"
+      BillingMode: 'PAY_PER_REQUEST'
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      GlobalSecondaryIndexes:
+        - IndexName: 'status-views-index'
+          KeySchema:
+            - AttributeName: "status"
+              KeyType: "HASH"
+            - AttributeName: "views"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: 'ALL'
+        - IndexName: 'match_id-created_at-index'
+          KeySchema:
+            - AttributeName: "match_id"
+              KeyType: "HASH"
+            - AttributeName: "created_at"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: 'ALL'
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      TableName: 'videos_table'
+      Tags:
+        - Key: enable_backup
+          Value: true
+
+  ReportsTable:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        - AttributeName: "created_at"
+          AttributeType: "S"
+      BillingMode: 'PAY_PER_REQUEST'
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        - AttributeName: "created_at"
+          KeyType: "RANGE"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      TableName: 'reports_table'
+      Tags:
+        - Key: enable_backup
+          Value: true
+
+  BlogsTable:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      BillingMode: 'PAY_PER_REQUEST'
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      TableName: 'blogs_table'
+      Tags:
+        - Key: enable_backup
+          Value: true
+
+  RedditCommentsTable:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      BillingMode: 'PAY_PER_REQUEST'
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      TableName: 'reddit_comments_table'
+      Tags:
+        - Key: enable_backup
+          Value: true

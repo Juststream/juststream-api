@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+
+Resources:
+  MediaConvertTrigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: 'media-convert-trigger'
+      CodeUri: ./
+      Description: 'Updates video status'
+      Timeout: 10
+      Tracing: 'Active'
+      Handler: update_videos_table.handler
+      MemorySize: 128
+      Runtime: python3.9
+      AutoPublishAlias: live
+      Role: !GetAtt MediaConvertTriggerRole.Arn
+      DeploymentPreference:
+        Type: AllAtOnce
+      Events:
+        MediaConvertTrigger:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source:
+                - aws.mediaconvert
+              detail-type:
+                - MediaConvert Job State Change
+              detail:
+                status:
+                  - PROGRESSING
+                  - ERROR
+                  - COMPLETE
+            Target:
+              Id: live
+
+  MediaConvertTriggerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'lambda.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: 'DynamoDBAccess'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:*'
+                Resource:
+                  - 'arn:aws:dynamodb:*:*:table/videos_table'
