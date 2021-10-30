@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import videos_router
+from routers import videos_router, blogs_router
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-for router in [videos_router]:
+for router in [videos_router, blogs_router]:
     app.include_router(router.router)
 
 
