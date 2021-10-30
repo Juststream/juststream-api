@@ -1,0 +1,24 @@
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Python Cache
+*.pyc
+
+# Venvs
+venv/
+
+# Reddit conf
+praw.ini
+
+# ides
+.idea
+.DS_store
+.env
+
+
+#aws
+.aws-sam/*
+test_invokes
