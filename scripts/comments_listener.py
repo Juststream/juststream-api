@@ -28,12 +28,12 @@ def reply_comment(comment):
     print(video_url, 'found', flush=True)
     host = get_website_host(video_url)
     print(host, flush=True)
-    if host == 'youtube.com' or host == 'youtu.be':
+    if host == 'youtube.com' or host == 'youtu.be' or host == 'redd.it' or host == 'reddit.com':
         return
     elif host == 'streamable.com':
         time.sleep(15)
     elif host == 'streamwo.com':
-        time.sleep(90)
+        time.sleep(45)
     elif host == 'streamja.com':
         time.sleep(15)
     elif host == 'streamye.com':
@@ -48,7 +48,10 @@ def reply_comment(comment):
         print('no file', flush=True)
         return
     file_size = sys.getsizeof(file)
-    if file_size > 100000000:  # 100 MB
+    if file_size < 500000:  # 500 KB
+        print('undersize')
+        return
+    if file_size > 1000000000:  # 100 MB
         print('oversize')
         return
     print('true', flush=True)
