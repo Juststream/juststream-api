@@ -1,1 +1,1 @@
-web: gunicorn -k uvicorn.workers.UvicornWorker main:app --workers=5 --threads=8
+web: gunicorn -k uvicorn.workers.UvicornWorker main:app --workers=5
