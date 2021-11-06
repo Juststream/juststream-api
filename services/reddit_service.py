@@ -33,3 +33,7 @@ class RedditClient:
             if len(comments) == 20:
                 break
         return comments
+
+    def post_url(self, subreddit_name, title, url):
+        subreddit = self.reddit.subreddit(subreddit_name)
+        subreddit.submit(title, url=url)
