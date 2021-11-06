@@ -15,12 +15,12 @@ videos_controller = VideosController()
 
 
 @router.get('/')
-async def videos():
+def videos():
     return videos_controller.get_top_videos()
 
 
 @router.get('/{video_id}')
-async def get_video(video_id: str):
+def get_video(video_id: str):
     video = videos_controller.get_video(video_id)
     media_convert_job_id = video.get('media_convert_job_id')
     if not media_convert_job_id:
@@ -43,19 +43,19 @@ async def get_video(video_id: str):
 
 
 @router.post('/upload/files')
-async def upload_multiple_files(files: List[UploadFile] = File(...)):
+def upload_multiple_files(files: List[UploadFile] = File(...)):
     video_item = videos_controller.upload_multiple_videos_as_one([await file.read() for file in files])
     return {'id': video_item['id']}
 
 
 @router.post('/upload')
-async def upload_video(file: UploadFile = File(...)):
+def upload_video(file: UploadFile = File(...)):
     video_item = videos_controller.upload_video(await file.read())
     return {'id': video_item['id']}
 
 
 @router.post('/upload-from-url')
-async def upload_video_from_url(url_upload_model: UrlUploadModel):
+def upload_video_from_url(url_upload_model: UrlUploadModel):
     file = VideoDownloader(url_upload_model.url).get_video_content()
     if not file:
         raise HTTPException(400, 'Website not supported')
@@ -67,11 +67,11 @@ async def upload_video_from_url(url_upload_model: UrlUploadModel):
 
 
 @router.post('/{video_id}/report')
-async def report_video(video_id: str):
+def report_video(video_id: str):
     videos_controller.report_video(video_id)
     return Response(status_code=204)
 
 
 @router.get('/{video_id}/related')
-async def get_related_videos(video_id: str):
+def get_related_videos(video_id: str):
     return videos_controller.get_related_videos(video_id)

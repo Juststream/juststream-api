@@ -26,5 +26,5 @@ for router in [videos_router, blogs_router, reddit_router]:
 
 
 @app.get('/health')
-def health():
+async def health():
     return {'status': 'OK'}

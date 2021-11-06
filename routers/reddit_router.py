@@ -16,7 +16,7 @@ videos_table = VideosTable()
 
 
 @router.get('/{video_id}')
-async def get_top_comments(video_id: str):
+def get_top_comments(video_id: str):
     video = videos_table.get_item(video_id)
     submission_id = video.get('reddit_submission_id')
     if not submission_id:
