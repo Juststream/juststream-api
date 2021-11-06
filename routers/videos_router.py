@@ -44,13 +44,13 @@ def get_video(video_id: str):
 
 @router.post('/upload/files')
 def upload_multiple_files(files: List[UploadFile] = File(...)):
-    video_item = videos_controller.upload_multiple_videos_as_one([await file.read() for file in files])
+    video_item = videos_controller.upload_multiple_videos_as_one([file.read() for file in files])
     return {'id': video_item['id']}
 
 
 @router.post('/upload')
 def upload_video(file: UploadFile = File(...)):
-    video_item = videos_controller.upload_video(await file.read())
+    video_item = videos_controller.upload_video(file.read())
     return {'id': video_item['id']}
 
 
