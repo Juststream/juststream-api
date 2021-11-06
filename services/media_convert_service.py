@@ -43,10 +43,10 @@ class MediaConvertClient:
                                 "NameModifier": "360",
                                 "Preset": "System-Avc_16x9_360p_29_97fps_1200kbps"
                             },
-                            {
-                                "Preset": "System-Avc_16x9_720p_29_97fps_6500kbps",
-                                "NameModifier": "720"
-                            },
+                            # {
+                            #     "Preset": "System-Avc_16x9_720p_29_97fps_6500kbps",
+                            #     "NameModifier": "720"
+                            # },
                             # {
                             #     "NameModifier": "1080",
                             #     "Preset": "System-Avc_16x9_1080p_29_97fps_8500kbps"
