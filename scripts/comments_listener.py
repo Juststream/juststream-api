@@ -18,7 +18,7 @@ media_convert_client = MediaConvertClient()
 
 
 def reply_comment(comment):
-    if not (comment.author == 'AutoModerator'):
+    if comment.author != 'AutoModerator':
         return
     submission = comment.submission
     if submission.is_video:
