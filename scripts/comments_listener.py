@@ -18,7 +18,7 @@ media_convert_client = MediaConvertClient()
 
 
 def reply_comment(comment):
-    if not (comment.author == 'AutoModerator' and 'mirrors / alternate angles' in comment.body.lower()):
+    if not (comment.author == 'AutoModerator'):
         return
     submission = comment.submission
     if submission.is_video:
