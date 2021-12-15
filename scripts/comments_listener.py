@@ -33,9 +33,9 @@ def reply_comment(comment):
     elif host == 'streamable.com':
         time.sleep(15)
     elif host == 'streamwo.com':
-        time.sleep(30)
+        time.sleep(45)
     elif host == 'mixture.gg':
-        time.sleep(30)
+        time.sleep(45)
     elif host == 'streamja.com':
         time.sleep(15)
     elif host == 'streamye.com':
