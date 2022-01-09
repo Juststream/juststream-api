@@ -29,9 +29,15 @@ class VideosController:
 
     def upload_video(self, file_object: bytes) -> dict:
         video_id = get_random_name()
-        filepath = f'{video_id}/video.mp4'
-        video_store_s3.upload_file(file_object, filepath)
-        return self.create_video_from_s3_paths([f's3://m3u8-files-mate/{filepath}'], video_id)
+        s3_path = f'{video_id}/video.mp4'
+        video_store_s3.upload_file(file_object, s3_path)
+        return self.create_video_from_s3_paths([f's3://m3u8-files-mate/{s3_path}'], video_id)
+
+    def upload_video_from_path(self, file_path: str) -> dict:
+        video_id = get_random_name()
+        s3_path = f'{video_id}/video.mp4'
+        video_store_s3.upload_from_path(file_path, s3_path)
+        return self.create_video_from_s3_paths([f's3://m3u8-files-mate/{s3_path}'], video_id)
 
     def upload_multiple_videos_as_one(self, file_objects: list) -> dict:
         video_id = get_random_name()

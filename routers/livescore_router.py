@@ -25,6 +25,8 @@ def get_match_details(match_id: str):
     response = requests.get(
         f'https://www.livescore.com/_next/data/dl1aBUxUep6IgIw9DWru5/en/football/_/_/_/{match_id}.json')
     match_data = response.json()['pageProps']['initialData']
+    current_time_raw = match_data.get('Eps')
+    current_time = int(current_time_raw.rstrip("'")) if current_time_raw[0].isdigit() else None
     line_ups = match_data['Lu']
     return {
         'home_team': {
@@ -36,5 +38,6 @@ def get_match_details(match_id: str):
             'team_name': match_data['T2'][0]['Nm'],
             'players': get_players_from_team(line_ups[1]),
             'score': match_data.get('Tr2')
-        }
+        },
+        'current_time': current_time
     }

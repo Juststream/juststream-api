@@ -22,3 +22,5 @@ praw.ini
 #aws
 .aws-sam/*
 test_invokes
+
+clips
