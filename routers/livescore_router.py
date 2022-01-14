@@ -9,7 +9,7 @@ router = APIRouter(
 def get_players_from_team(team):
     players = []
     for player in team['Ps']:
-        if player.get('Pon') == 'COACH':
+        if player.get('Pon') == 'COACH' or not player.get('Snm') or not player.get('Snu'):
             continue
         players.append(
             {
