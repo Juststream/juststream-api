@@ -57,7 +57,7 @@ class VideosController:
         for video in videos_table.get_all_time_top():
             top_videos.append({
                 'id': video['id'],
-                'thumbnail': f'https://d2udncs3qw19a6.cloudfront.net/{video["id"]}/videoposter.0000001.jpg',
+                'thumbnail': f'https://d235yh2mc42dtx.cloudfront.net/{video["id"]}/videoposter.0000001.jpg',
                 'views': video['views']
             })
         return top_videos

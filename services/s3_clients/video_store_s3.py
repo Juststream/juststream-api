@@ -13,7 +13,7 @@ class VideoStoreS3(S3Client):
 
     def invalidate_cache(self, video_id):
         self.cloudfront.create_invalidation(
-            DistributionId='E2ZN4CECE7IMYV',
+            DistributionId='E2VO5R1C606TBW',
             InvalidationBatch={
                 'Paths': {
                     'Quantity': 1,

@@ -51,4 +51,4 @@ if __name__ == '__main__':
             "header_overrides": {}
         }
     }, {})
-    print('https://d2udncs3qw19a6.cloudfront.net/hey/mate.ts')
+    print('https://d235yh2mc42dtx.cloudfront.net/hey/mate.ts')
