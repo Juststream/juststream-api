@@ -10,6 +10,7 @@ from services.downloaders.reddit_downloader import RedditDownloader
 from services.downloaders.scuffedentertainment_downloader import ScuffedentertainmentDownloader
 from services.downloaders.streamable_downloader import StreamableDownloader
 from services.downloaders.streamff_downloader import StreamffDownloader
+from services.downloaders.streamgg_downloader import StreamggDownloader
 from services.downloaders.streamja_downloader import StreamjaDownloader
 from services.downloaders.streamwo_downloader import StreamwoDownloader
 from services.downloaders.streamye_downloader import StreamyeDownloader
@@ -31,6 +32,7 @@ VIDEO_DOWNLOADER_MAP: Final = {
     'gfycat.com': GfycatDownloader,
     'scuffedentertainment.com': ScuffedentertainmentDownloader,
     'streamff.com': StreamffDownloader,
+    'streamgg.com': StreamggDownloader,
     'mixture.gg': MixtureggDownloader
 }
 
