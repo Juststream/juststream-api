@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta
 
 
+def get_time_after(days, hours, minutes):
+    return datetime.utcnow() + timedelta(days=days, hours=hours, minutes=minutes)
+
+
 def get_current_timestamp():
     return str(datetime.utcnow().timestamp())
 

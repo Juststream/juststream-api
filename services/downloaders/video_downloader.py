@@ -4,6 +4,7 @@ import requests
 
 from helpers.url_helper import get_website_host
 from services.downloaders.clippituser_downloader import ClippituserDownloader
+from services.downloaders.foddergg_downloader import FodderggDownloader
 from services.downloaders.gfycat_downloader import GfycatDownloader
 from services.downloaders.mixturegg_downloader import MixtureggDownloader
 from services.downloaders.reddit_downloader import RedditDownloader
@@ -33,7 +34,8 @@ VIDEO_DOWNLOADER_MAP: Final = {
     'scuffedentertainment.com': ScuffedentertainmentDownloader,
     'streamff.com': StreamffDownloader,
     'streamgg.com': StreamggDownloader,
-    'mixture.gg': MixtureggDownloader
+    'mixture.gg': MixtureggDownloader,
+    'v.fodder.gg': FodderggDownloader
 }
 
 
