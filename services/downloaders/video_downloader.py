@@ -17,6 +17,7 @@ from services.downloaders.streamwo_downloader import StreamwoDownloader
 from services.downloaders.streamye_downloader import StreamyeDownloader
 from services.downloaders.twitter_downloader import TwitterDownloader
 from services.downloaders.youtube_downloader import YoutubeDownloader
+from services.downloaders.clip_dubz_downloader import ClipDubzDownloader
 
 VIDEO_DOWNLOADER_MAP: Final = {
     'reddit.com': RedditDownloader,
@@ -35,7 +36,8 @@ VIDEO_DOWNLOADER_MAP: Final = {
     'streamff.com': StreamffDownloader,
     'streamgg.com': StreamggDownloader,
     'mixture.gg': MixtureggDownloader,
-    'v.fodder.gg': FodderggDownloader
+    'v.fodder.gg': FodderggDownloader,
+    'clip.dubz.co': ClipDubzDownloader
 }
 
 
