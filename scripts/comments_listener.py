@@ -40,6 +40,8 @@ def reply_comment(comment):
         time.sleep(45)
     elif host == 'mixture.gg':
         time.sleep(45)
+    elif host == 'clip.dubz.co':
+        time.sleep(45)
     elif host == 'streamja.com':
         time.sleep(15)
     elif host == 'streamye.com':
