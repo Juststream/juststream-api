@@ -96,7 +96,7 @@ def reply_comment(comment):
         f"""[Juststream Mirror](https://juststream.live/{video_id})
         
         Juststream needs your help. From 1 October We Will NOT Be able to pay for the costs of AWS servers.
-        You can [DONATE here](https://www.buymeacoffee.com/bersen). 1 Donation (5$) can make Juststream last one more day.
+        You can [DONATE here](https://www.buymeacoffee.com/bersena). 1 Donation (5$) can make Juststream last one more day.
         """
     )
 
