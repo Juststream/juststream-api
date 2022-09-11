@@ -37,7 +37,8 @@ VIDEO_DOWNLOADER_MAP: Final = {
     'streamgg.com': StreamggDownloader,
     'mixture.gg': MixtureggDownloader,
     'v.fodder.gg': FodderggDownloader,
-    'clip.dubz.co': ClipDubzDownloader
+    'clip.dubz.co': ClipDubzDownloader,
+    'dubz.co': ClipDubzDownloader,
 }
 
 

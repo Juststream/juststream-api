@@ -42,6 +42,8 @@ def reply_comment(comment):
         time.sleep(45)
     elif host == 'clip.dubz.co':
         time.sleep(45)
+    elif host == 'dubz.co':
+        time.sleep(45)
     elif host == 'streamja.com':
         time.sleep(15)
     elif host == 'streamye.com':
@@ -89,7 +91,14 @@ def reply_comment(comment):
     )
     print(f'https://juststream.live/{video_id}', 'generated', flush=True)
     print(submission.shortlink, 'Commented', flush=True)
-    reddit_client.reply_comment(comment.id, f'[Juststream Mirror](https://juststream.live/{video_id})')
+    reddit_client.reply_comment(
+        comment.id,
+        f"""[Juststream Mirror](https://juststream.live/{video_id})
+        
+        Juststream needs your help. From 1 October We Will NOT Be able to pay for the costs of AWS servers.
+        You can [DONATE here](https://www.buymeacoffee.com/bersen). 1 Donation (5$) can make Juststream last one more day.
+        """
+    )
 
 
 if __name__ == "__main__":
