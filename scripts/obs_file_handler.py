@@ -3,13 +3,13 @@ import time
 
 from controllers.videos_controller import VideosController
 
-CLIPS_DIR = 'clips'
+CLIPS_DIR = "clips"
 
 CLIPS_SET = set()
 
 videos_controller = VideosController()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for clip_name in os.listdir(CLIPS_DIR):
         CLIPS_SET.add(clip_name)
     while True:

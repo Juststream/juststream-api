@@ -3,7 +3,6 @@ from lxml.html import fromstring
 
 
 class GfycatDownloader:
-
     @staticmethod
     def get_video_content(url: str):
         response = requests.get(url)

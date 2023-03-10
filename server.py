@@ -21,7 +21,7 @@ origins = [
     "https://www.juststream.live",
     "http://dev.juststream.live",
     "https://dev.juststream.live",
-    "http://localhost:8080"
+    "http://localhost:8080",
 ]
 
 app.add_middleware(
@@ -36,6 +36,6 @@ for router in [videos_router, blogs_router, reddit_router, livescore_router]:
     app.include_router(router.router)
 
 
-@app.get('/health')
+@app.get("/health")
 async def health():
-    return {'status': 'OK'}
+    return {"status": "OK"}

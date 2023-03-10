@@ -2,12 +2,11 @@ import boto3
 
 
 class MediaConvertClient:
-
     def __init__(self):
         self.media_convert_client = boto3.client(
-            'mediaconvert',
-            endpoint_url='https://lxlxpswfb.mediaconvert.us-east-1.amazonaws.com',
-            region_name='us-east-1'
+            "mediaconvert",
+            endpoint_url="https://lxlxpswfb.mediaconvert.us-east-1.amazonaws.com",
+            region_name="us-east-1",
         )
 
     def create_streaming_videos(self, input_s3_urls: list, output_id: str):
@@ -16,16 +15,13 @@ class MediaConvertClient:
                 "Inputs": [
                     {
                         "TimecodeSource": "ZEROBASED",
-                        "VideoSelector": {
-                            "Rotate": "AUTO"
-                        },
+                        "VideoSelector": {"Rotate": "AUTO"},
                         "AudioSelectors": {
-                            "Audio Selector 1": {
-                                "DefaultSelection": "DEFAULT"
-                            }
+                            "Audio Selector 1": {"DefaultSelection": "DEFAULT"}
                         },
-                        "FileInput": input_s3_url
-                    } for input_s3_url in input_s3_urls
+                        "FileInput": input_s3_url,
+                    }
+                    for input_s3_url in input_s3_urls
                 ],
                 "OutputGroups": [
                     {
@@ -35,13 +31,13 @@ class MediaConvertClient:
                             "HlsGroupSettings": {
                                 "SegmentLength": 10,
                                 "MinSegmentLength": 0,
-                                "Destination": f"s3://m3u8-files-mate/{output_id}/"
-                            }
+                                "Destination": f"s3://m3u8-files-mate/{output_id}/",
+                            },
                         },
                         "Outputs": [
                             {
                                 "NameModifier": "360",
-                                "Preset": "System-Avc_16x9_360p_29_97fps_1200kbps"
+                                "Preset": "System-Avc_16x9_360p_29_97fps_1200kbps",
                             },
                             # {
                             #     "Preset": "System-Avc_16x9_720p_29_97fps_6500kbps",
@@ -52,7 +48,7 @@ class MediaConvertClient:
                             #     "Preset": "System-Avc_16x9_1080p_29_97fps_8500kbps"
                             # }
                         ],
-                        "CustomName": "HLS"
+                        "CustomName": "HLS",
                     },
                     {
                         "Name": "File Group",
@@ -60,7 +56,7 @@ class MediaConvertClient:
                             "Type": "FILE_GROUP_SETTINGS",
                             "FileGroupSettings": {
                                 "Destination": f"s3://m3u8-files-mate/{output_id}/"
-                            }
+                            },
                         },
                         "Outputs": [
                             {
@@ -71,31 +67,25 @@ class MediaConvertClient:
                                             "MaxCaptures": 2,
                                             "FramerateNumerator": 30,
                                             "FramerateDenominator": 100,
-                                            "Quality": 80
-                                        }
+                                            "Quality": 80,
+                                        },
                                     },
                                     "Width": 1280,
-                                    "Height": 720
+                                    "Height": 720,
                                 },
-                                "ContainerSettings": {
-                                    "Container": "RAW"
-                                },
-                                "NameModifier": "poster"
+                                "ContainerSettings": {"Container": "RAW"},
+                                "NameModifier": "poster",
                             }
-                        ]
-                    }
+                        ],
+                    },
                 ],
-                "TimecodeConfig": {
-                    "Source": "ZEROBASED"
-                }
+                "TimecodeConfig": {"Source": "ZEROBASED"},
             },
             "Role": "arn:aws:iam::835898206524:role/media-convert",
-            "UserMetadata": {
-                "video_id": output_id
-            }
+            "UserMetadata": {"video_id": output_id},
         }
         response = self.media_convert_client.create_job(**output_template)
-        return response['Job']['Id']
+        return response["Job"]["Id"]
 
     def get_job(self, job_id: str):
         response = self.media_convert_client.get_job(Id=job_id)
@@ -103,4 +93,4 @@ class MediaConvertClient:
 
     def get_job_status(self, job_id: str):
         response = self.get_job(job_id)
-        return response['Job']['Status']
+        return response["Job"]["Status"]

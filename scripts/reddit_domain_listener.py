@@ -10,33 +10,28 @@ videos_table = VideosTable()
 
 
 def update_video(submission):
-    video_id = submission.url.split('juststream.live/')
+    video_id = submission.url.split("juststream.live/")
     if len(video_id) > 1:
-        video_id = video_id[1].split('/')[0].split('?')[0]
+        video_id = video_id[1].split("/")[0].split("?")[0]
     else:
         return
     video_item = videos_table.get_item(video_id)
-    if not video_item or video_item.get('reddit_submission_id'):
+    if not video_item or video_item.get("reddit_submission_id"):
         return
 
     item_to_update = [
-        ('reddit_submission_id', submission.id),
-        ('video_title', submission.title)
+        ("reddit_submission_id", submission.id),
+        ("video_title", submission.title),
     ]
     match_id = generate_match_id(submission.title)
     if match_id:
-        item_to_update.append(
-            ('match_id', generate_match_id(submission.title))
-        )
-    videos_table.update_item(
-        video_id,
-        item_to_update
-    )
-    print(video_item, 'updated', flush=True)
+        item_to_update.append(("match_id", generate_match_id(submission.title)))
+    videos_table.update_item(video_id, item_to_update)
+    print(video_item, "updated", flush=True)
 
 
 if __name__ == "__main__":
-    reddit_client = RedditClient('juststream')
+    reddit_client = RedditClient("juststream")
     while True:
         try:
             my_domain = reddit_client.reddit.domain("juststream.live").new

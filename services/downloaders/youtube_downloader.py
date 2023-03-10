@@ -4,7 +4,6 @@ from pytube import YouTube
 
 
 class YoutubeDownloader:
-
     @staticmethod
     def get_video_content(youtube_url):
         youtube = YouTube(youtube_url)

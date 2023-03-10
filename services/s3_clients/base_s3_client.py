@@ -3,12 +3,13 @@ from botocore.exceptions import ClientError
 
 
 class S3Client:
-
     def __init__(self, bucket):
         self.bucket = bucket
-        self._s3 = boto3.client('s3')
+        self._s3 = boto3.client("s3")
 
-    def upload_file(self, body: bytes, key: str, metadata=None, content_type='binary/octet-stream'):
+    def upload_file(
+        self, body: bytes, key: str, metadata=None, content_type="binary/octet-stream"
+    ):
         """
         uploads file to s3 bucket.
         Args:
@@ -26,7 +27,7 @@ class S3Client:
             Bucket=self.bucket,
             Key=key,
             Metadata=metadata or {},
-            ContentType=content_type
+            ContentType=content_type,
         )
         return response
 
@@ -59,7 +60,7 @@ class S3Client:
 
         """
         obj = self._s3.head_object(Bucket=self.bucket, Key=key)
-        size = obj['ContentLength']
+        size = obj["ContentLength"]
         return size
 
     def get_file(self, key: str):
@@ -73,7 +74,7 @@ class S3Client:
 
         """
         response = self._s3.get_object(Bucket=self.bucket, Key=key)
-        body = response['Body'].read()
+        body = response["Body"].read()
         return body
 
     def exists(self, key: str):

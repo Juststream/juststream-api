@@ -2,7 +2,6 @@ import praw
 
 
 class RedditClient:
-
     def __init__(self, settings_id: str):
         self.reddit = praw.Reddit(settings_id)
 
@@ -12,22 +11,22 @@ class RedditClient:
     def get_best_comments(self, submission_id: str):
         comments = []
         submission = self.reddit.submission(submission_id)
-        submission.comment_sort = 'best'
+        submission.comment_sort = "best"
         submission.comment_limit = 100
         for comment in submission.comments:
             if isinstance(comment, praw.models.MoreComments):
                 continue
-            if comment.author.name == 'AutoModerator':
+            if comment.author.name == "AutoModerator":
                 continue
             flair = None
             if comment.author_flair_richtext:
-                flair = comment.author_flair_richtext[0].get('u')
+                flair = comment.author_flair_richtext[0].get("u")
             comments.append(
                 {
-                    'body': comment.body,
-                    'author': comment.author.name,
-                    'score': comment.score,
-                    'flair': flair
+                    "body": comment.body,
+                    "author": comment.author.name,
+                    "score": comment.score,
+                    "flair": flair,
                 }
             )
             if len(comments) == 20:

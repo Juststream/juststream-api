@@ -3,7 +3,6 @@ from lxml.html import fromstring
 
 
 class StreamwoDownloader:
-
     @staticmethod
     def get_video_content(url):
         response = requests.get(url)

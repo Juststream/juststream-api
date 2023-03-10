@@ -3,7 +3,6 @@ import requests
 
 
 class M3u8Downloader:
-
     @staticmethod
     def parse_m3u8(video_host: str, m3u8_url: str):
         session = requests.Session()
@@ -17,4 +16,4 @@ class M3u8Downloader:
         for ts_uri in ts_m3u8_parse.segments.uri:
             ts_file = requests.get(video_host + ts_uri)
             chunks.append(ts_file.content)
-        return b''.join(chunks)
+        return b"".join(chunks)
