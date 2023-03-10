@@ -1,9 +1,0 @@
-fastapi[all]==0.70.0
-requests==2.26.0
-boto3==1.18.23
-lxml==4.6.3
-praw==7.4.0
-pytube==11.0.1
-m3u8==0.9.0
-botocore==1.21.65
-pydantic==1.8.2

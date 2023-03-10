@@ -24,3 +24,5 @@ praw.ini
 test_invokes
 
 clips
+
+output-template.yaml

@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Enter environment(dev, staging or prod) to deploy application.
+
+Resources:
+  FastApiLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies:
+        - PolicyName: !Sub "${AWS::StackName}-fast-api-lambda-role"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource:
+                  - !Sub "arn:aws:secretsmanager:${AWS::Region}:*:secret:*"
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource:
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:*:*"
+  ServiceApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub "${AWS::StackName}-service"
+      StageName: !Ref Environment
+  RequirementsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub "${AWS::StackName}-requirements-layer"
+      Description: Requirements for fastapi
+      ContentUri: ./requirements_layer
+      CompatibleRuntimes:
+        - python3.9
+      LicenseInfo: MIT
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: makefile
+  FastAPILambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-fastapi-lambda"
+      Handler: main.handler
+      Runtime: python3.9
+      Layers:
+        - !Ref RequirementsLayer
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+      Role: !GetAtt FastApiLambdaRole.Arn
+      Events:
+        HttpProxy:
+          Type: Api
+          Properties:
+            Path: '/{proxy+}'
+            Method: any
+            RestApiId: !Ref ServiceApi
+
+Outputs:
+  SearchApi:
+    Description: "API Gateway endpoint URL for Search function"
+    Value: !Sub "https://${ServiceApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}"
