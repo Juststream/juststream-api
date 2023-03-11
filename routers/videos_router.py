@@ -55,6 +55,7 @@ def upload_video(file: UploadFile = File(...)):
 
 @router.post("/upload-from-url")
 def upload_video_from_url(url_upload_model: UrlUploadModel):
+    raise HTTPException(400, "Stahp! Video Uploading is Stopped Currently")
     file = VideoDownloader(url_upload_model.url).get_video_content()
     if not file:
         raise HTTPException(400, "Website not supported")
