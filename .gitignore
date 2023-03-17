@@ -16,7 +16,9 @@ praw.ini
 # ides
 .idea
 .DS_store
-.env
+
+# env files
+*.env
 
 
 #aws
