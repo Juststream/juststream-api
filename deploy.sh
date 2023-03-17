@@ -26,10 +26,11 @@ if [[ -z "${env}" ]]; then
   exit 1
 fi
 
+aws ssm get-parameters \
+  --name="/${STACK_NAME}/${env}" \
+  --with-decryption | jq -r '.Parameters | map("\(.Value)") | .[]' | cut -d'/' -f3- >requirements_layer/${env}.env
+
 if [[ "${build}" == "true" ]]; then
-  aws ssm get-parameters \
-    --name="/juststream/${env}" \
-    --with-decryption | jq -r '.Parameters | map("\(.Value)") | .[]' | cut -d'/' -f3- > requirements_layer/${env}.env
   sam build \
     --use-container \
     --container-env-var ENV=${env} \
